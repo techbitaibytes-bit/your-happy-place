@@ -712,7 +712,7 @@ function ChatPage() {
                   >
                     <div
                       className={cn(
-                        "max-w-[85%] sm:max-w-[75%] rounded-2xl px-4 py-3 text-[15px] leading-relaxed",
+                        "max-w-[92%] sm:max-w-[78%] rounded-2xl px-4 py-3 text-[15px] leading-relaxed",
                         "border backdrop-blur-md",
                         m.role === "user"
                           ? "border-accent/40 bg-accent/15 text-foreground rounded-3xl rounded-tr-sm glow-soft"
