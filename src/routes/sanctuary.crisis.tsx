@@ -137,22 +137,18 @@ function CrisisPage() {
         signal: ctrl.signal,
       });
 
-      if (!res.ok || !res.body) {
-        const body = await res.text().catch(() => "");
-        throw new Error(body || `Request failed (${res.status})`);
+      const text = await res.text();
+      if (!res.ok) {
+        let msg = `Request failed (${res.status})`;
+        try {
+          const j = JSON.parse(text);
+          if (j?.error) msg = j.error;
+        } catch {}
+        throw new Error(msg);
       }
+      setResultsText(text);
+      setSupportItems(parseSupportItems(text));
 
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let acc = "";
-
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        acc += decoder.decode(value, { stream: true });
-        setResultsText(acc);
-      }
-      setSupportItems(extractJsonArray(acc));
     } catch (e) {
       if ((e as any).name === "AbortError") {
         setError("Search cancelled.");
