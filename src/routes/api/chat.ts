@@ -227,7 +227,7 @@ export const Route = createFileRoute("/api/chat")({
                 messages: groqMessages,
                 stream: !isJsonPreset,
                 max_tokens: 1024,
-                temperature: isJsonPreset ? 0.2 : 0.8,
+                temperature: isJsonPreset ? 0.2 : 0.55,
                 ...(isJsonPreset ? { response_format: { type: "json_object" } } : {}),
               }),
             }
